@@ -94,8 +94,11 @@ class Server
             case 'chokara':
                 $result = 'かなり辛いから気をつけて！';
                 break;
-            default:
+            case 'yabai':
                 $result = 'ヤバいから心して食え';
+                break;
+            default:
+                $result = '';
         };
         echo $result;
     }
@@ -108,5 +111,5 @@ $server->serve($karamen);
 
 echo "\n";
 
-$karamen = new Karamen(40, true, true);
+$karamen = new Karamen(40, true, false);
 $server->serve($karamen);

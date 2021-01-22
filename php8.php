@@ -65,15 +65,19 @@ class Server
         echo implode('、', $karamen->description());
         echo '、';
 
-        /* Match expression */
-        $result = match ($karamen->roughKarasa()) {
-            'mild' => 'そんなに辛くないよ！',
-            'karai' => 'ちょっと辛いよ！',
-            'gekikara' => '結構辛いよ！',
-            'chokara' => 'かなり辛いから気をつけて！',
-            default => 'ヤバいから心して食え',
-        };
-        echo $result;
+        try {
+            /* Match expression */
+            $result = match ($karamen->roughKarasa()) {
+                'mild' => 'そんなに辛くないよ！',
+                'karai' => 'ちょっと辛いよ！',
+                'gekikara' => '結構辛いよ！',
+                'chokara' => 'かなり辛いから気をつけて！',
+                'yabai' => 'ヤバいから心して食え',
+            };
+            echo $result;
+        } catch (UnhandledMatchError $e) {
+            echo 'エラー: ' . $e->getMessage();
+        }
     }
 }
 
@@ -86,5 +90,5 @@ $server->serve($karamen);
 echo "\n";
 
 /* Named arguments */
-$karamen = new Karamen(ninniku: true, karasa: 40, nira: true);
+$karamen = new Karamen(ninniku: false, karasa: 40, nira: true);
 $server->serve($karamen);
